@@ -1,5 +1,6 @@
-class Image2Uploader < CarrierWave::Uploader::Base
-  include CarrierWave::MiniMagick
+class Image4Uploader < CarrierWave::Uploader::Base
+
+  include CarrierWave::Vips
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -19,17 +20,30 @@ class Image2Uploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
 
+  def resize_and_pad(new_width, new_height, opts = {})
+    manipulate! do |image|
+      image = resize_image(image,new_width,new_height)
+      image.embed ( new_width - image.width ) / 2, ( new_height - image.height ) / 2, new_width, new_height, opts
+    end
+  end
+
   # Create different versions of your uploaded files:
   version :fit do
-    process resize_to_fit:  [100, 100]
+    process resize_to_fit: [100, 100]
   end
 
   version :fill do
     process resize_to_fill: [100, 100]
   end
 
+  # version :limit do
+  #   process resize_to_limit: [100, 100]
+  # end
+
   version :pad do
-    process resize_and_pad: [100, 100]
+    process resize_and_pad: [100, 100, :background => [0, 128, 100]]
+    # process resize_and_pad: [100, 100, :extend => 'copy']
+    # process resize_and_pad: [100, 100]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -43,4 +57,5 @@ class Image2Uploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+
 end
