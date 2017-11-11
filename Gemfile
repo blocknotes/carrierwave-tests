@@ -32,6 +32,7 @@ gem 'jbuilder', '~> 2.5'
 ###
 
 gem 'mini_magick'
+gem 'rmagick'
 gem 'carrierwave'
 gem 'carrierwave-vips'
 gem 'slim-rails'
