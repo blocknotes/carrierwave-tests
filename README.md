@@ -1,24 +1,7 @@
-# README
+# Project setup
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```ruby
+rails g scaffold Post --skip title:string description:text image1:string image2:string image3:string image4:string image5:string image6:string image7:string image8:string image9:string
+rails g model Image data:string
+# Added polymorphic reference to Image
+```

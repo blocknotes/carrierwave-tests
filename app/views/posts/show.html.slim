@@ -1,0 +1,15 @@
+p#notice = notice
+
+p = @post.title
+
+p = @post.description
+
+p
+  ul
+    - (1..9).each do |i|
+      li
+        = @post["image#{i}"]
+
+=> link_to 'Edit', edit_post_path(@post)
+'|
+=< link_to 'Back', posts_path
