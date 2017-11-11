@@ -15,9 +15,14 @@
     = f.text_area :description, id: :page_description
 
   - (1..9).each do |i|
+    - field = "image#{i}".to_sym
+    - image = @post.send field
+    - with_uploader = image.is_a? CarrierWave::Uploader::Base
     div class="field"
-      - field = "image#{i}".to_sym
       = f.label field
-      = f.text_field field
+      - if with_uploader
+        = f.file_field field
+      - else
+        = f.text_field field
 
   .actions = f.submit

@@ -31,6 +31,9 @@ gem 'jbuilder', '~> 2.5'
 
 ###
 
+gem 'mini_magick'
+gem 'carrierwave'
+gem 'carrierwave-vips'
 gem 'slim-rails'
 
 ###
@@ -41,6 +44,7 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'pry'
 end
 
 group :development do

@@ -5,3 +5,13 @@ rails g scaffold Post --skip title:string description:text image1:string image2:
 rails g model Image data:string
 # Added polymorphic reference to Image
 ```
+
+## Experiments
+
+`Post.create title: 'A post'`
+
+```ruby
+post = Post.first
+post.image1 = File.open Rails.root.join( 'lib', 'image1.jpg' )
+post.save
+```

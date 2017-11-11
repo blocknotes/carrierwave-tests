@@ -7,8 +7,17 @@ p = @post.description
 p
   ul
     - (1..9).each do |i|
+      - image = @post.send "image#{i}".to_sym
+      - with_uploader = image.is_a? CarrierWave::Uploader::Base
+      -# binding.pry if i == 2
       li
-        = @post["image#{i}"]
+        = image
+        = " - #{with_uploader ? 'with_uploader' : 'no_uploader'}"
+        - if with_uploader
+          div
+            i Versions:
+            - image.versions.each do |ver, data|
+              =< link_to ver, image.url( ver )
 
 => link_to 'Edit', edit_post_path(@post)
 '|
