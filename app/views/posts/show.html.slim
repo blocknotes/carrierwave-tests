@@ -19,6 +19,7 @@ p
           br
           - if @post.send "image#{i}?".to_sym
             i Versions:
+            =< link_to 'original', image.url
             - image.versions.each do |ver, data|
               =< link_to ver, image.url( ver )
           - else
@@ -31,6 +32,7 @@ p
   br
   - if @post.extra_image && @post.extra_image.data?
     i Versions:
+    =< link_to 'original', @post.extra_image.data.url
     - @post.extra_image.data.versions.each do |ver, data|
       =< link_to ver, @post.extra_image.data.url( ver )
   - else

@@ -35,6 +35,7 @@ gem 'mini_magick'
 gem 'rmagick'
 gem 'carrierwave'
 gem 'carrierwave-vips'
+gem 'carrierwave-imageoptimizer'
 # gem 'carrierwave-vips', path: '~/tests/rails/carrierwave-vips'
 gem 'slim-rails'
 

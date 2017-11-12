@@ -62,6 +62,16 @@ process resize_to_fill: [100, 100]  # crop image
 process resize_and_pad: [100, 100, :background => [0, 128, 192]]  # extend image
 ```
 
+#### [CarrierWave ImageOptimizer](https://github.com/jtescher/carrierwave-imageoptimizer) (requires jpegoptim optipng pngquant)
+
+[uploader sample](app/uploaders/image5_uploader.rb)
+
+`gem 'carrierwave-imageoptimizer'`
+
+```ruby
+process optimize: [{ quality: 50 }]
+```
+
 ### Polymorphic Image
 
 ```ruby

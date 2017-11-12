@@ -23,7 +23,7 @@
     div class="field"
       = f.label field
       - if with_uploader
-        div = image_tag( image.url, class: 'preview' ) if image
+        div = image_tag( image.url, class: 'preview' ) if @post.send "image#{i}?".to_sym
         = f.file_field field
         = f.hidden_field "image#{i}_cache".to_sym
       - else
