@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+img.preview {
+  max-width: 500px;
+  max-height: 150px;
+}

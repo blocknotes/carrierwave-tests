@@ -4,6 +4,8 @@ p = @post.title
 
 p = @post.description
 
+hr
+
 p
   ul
     - (1..9).each do |i|
@@ -14,13 +16,27 @@ p
         = image
         = " - #{with_uploader ? 'with_uploader' : 'no_uploader'}"
         - if with_uploader
-          div
-            - if @post.send "image#{i}?".to_sym
-              i Versions:
-              - image.versions.each do |ver, data|
-                =< link_to ver, image.url( ver )
-            - else
-              b No image
+          br
+          - if @post.send "image#{i}?".to_sym
+            i Versions:
+            - image.versions.each do |ver, data|
+              =< link_to ver, image.url( ver )
+          - else
+            b No image
+
+hr
+
+p
+  = @post.extra_image ? @post.extra_image.data.url : ''
+  br
+  - if @post.extra_image && @post.extra_image.data?
+    i Versions:
+    - @post.extra_image.data.versions.each do |ver, data|
+      =< link_to ver, @post.extra_image.data.url( ver )
+  - else
+    b No image
+
+hr
 
 => link_to 'Edit', edit_post_path(@post)
 '|

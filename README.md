@@ -1,24 +1,23 @@
 # Project setup
 
 ```ruby
-rails g scaffold Post --skip title:string description:text image1:string image2:string image3:string image4:string image5:string image6:string image7:string image8:string image9:string
+rails g scaffold Post title:string description:text image1:string image2:string image3:string image4:string image5:string image6:string image7:string image8:string image9:string
 rails g model Image data:string
 # Added polymorphic reference to Image
+rails g scaffold News title:string description:text
 ```
 
 ## Experiments
 
-`Post.create title: 'A post'`
-
 ```ruby
-post = Post.first
+post = Post.find_or_create_by title: 'A post'
 post.image1 = File.open Rails.root.join( 'lib', 'image1.jpg' )
 post.save
 ```
 
-## Image Processing
+### Image Processing
 
-### [MiniMagick](https://github.com/minimagick/minimagick) (requires ImageMagick)
+#### [MiniMagick](https://github.com/minimagick/minimagick) (requires ImageMagick)
 
 [uploader sample](app/uploaders/image2_uploader.rb)
 
@@ -30,7 +29,7 @@ process resize_to_fill: [100, 100]  # crop image
 process resize_and_pad: [100, 100]  # extend image
 ```
 
-### [RMagick](https://github.com/rmagick/rmagick) (requires ImageMagick)
+#### [RMagick](https://github.com/rmagick/rmagick) (requires ImageMagick)
 
 [uploader sample](app/uploaders/image3_uploader.rb)
 
@@ -42,7 +41,7 @@ process resize_to_fill: [100, 100]  # crop image
 process resize_and_pad: [100, 100]  # extend image
 ```
 
-### [CarrierWave Vips](https://github.com/eltiare/carrierwave-vips) (requires LibVips)
+#### [CarrierWave Vips](https://github.com/eltiare/carrierwave-vips) (requires LibVips)
 
 [uploader sample](app/uploaders/image4_uploader.rb)
 
@@ -61,4 +60,17 @@ end
 process resize_to_fit:  [100, 100]  # resize (dimensions may be less than required)
 process resize_to_fill: [100, 100]  # crop image
 process resize_and_pad: [100, 100, :background => [0, 128, 192]]  # extend image
+```
+
+### Polymorphic Image
+
+```ruby
+post = Post.find_or_create_by title: 'A post'
+post.build_extra_image data: File.open( Rails.root.join( 'lib', 'image1.jpg' ) )
+post.save
+# post.extra_image.data.url
+news = News.find_or_create_by title: 'A news'
+news.build_extra_image data: File.open( Rails.root.join( 'lib', 'image1.jpg' ) )
+news.save
+# news.extra_image.data.url
 ```

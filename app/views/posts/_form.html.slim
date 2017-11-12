@@ -14,6 +14,8 @@
     = f.label :description
     = f.text_area :description, id: :page_description
 
+  hr
+
   - (1..9).each do |i|
     - field = "image#{i}".to_sym
     - image = @post.send field
@@ -21,8 +23,22 @@
     div class="field"
       = f.label field
       - if with_uploader
+        div = image_tag( image.url, class: 'preview' ) if image
         = f.file_field field
+        = f.hidden_field "image#{i}_cache".to_sym
       - else
         = f.text_field field
+
+  hr
+
+  / Polymorphic Image
+  = f.fields_for :extra_image, @post.extra_image || Image.new do |ff|
+    div class="field"
+      = ff.label :data
+      div = image_tag( @post.extra_image.data.url, class: 'preview' ) if @post.extra_image && @post.extra_image.data?
+      = ff.file_field :data
+      = ff.hidden_field :data_cache
+
+  hr
 
   .actions = f.submit
